@@ -13,25 +13,25 @@ import com.google.common.base.CaseFormat;
 import freemarker.template.Configuration;
 /**
  * Controller层 代码生成器
- * Created by zhh on 2017/09/20.
+ * Created by GaoLiWei on 2017/09/20.
  */
 public class ControllerGenerator extends CodeGeneratorManager implements CodeGenerator {
 
-	@Override
-	public void genCode(String tableName, String modelName, String sign) {
+
+	public void genCode(String tableName) {
 		Configuration cfg = getFreemarkerConfiguration();
-		String customMapping = "/" + sign + "/";
-		String modelNameUpperCamel = StringUtils.isNullOrEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
+
+		String tableNameUpperCamel = tableNameConvertUpperCamel(tableName);
 		
-		Map<String, Object> data = getDataMapInit(tableName, modelName, sign, modelNameUpperCamel); 
+		Map<String, Object> data = getDataMapInit(tableNameUpperCamel);
 		try {
-			File controllerFile = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_CONTROLLER+ customMapping
-						 + modelNameUpperCamel + "Controller.java");
+			File controllerFile = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_CONTROLLER
+						 + tableNameUpperCamel + "Controller.java");
 	        if (!controllerFile.getParentFile().exists()) {
 	        	controllerFile.getParentFile().mkdirs();
 	        }
 	        cfg.getTemplate("controller.ftl").process(data, new FileWriter(controllerFile));
-			logger.info(modelNameUpperCamel + "Controller.java 生成成功!");
+			logger.info(tableNameUpperCamel + "Controller.java 生成成功!");
 		} catch (Exception e) {
 			throw new RuntimeException("Controller 生成失败!", e);
 		}
@@ -39,22 +39,19 @@ public class ControllerGenerator extends CodeGeneratorManager implements CodeGen
 	
 	/**
 	 * 预置页面所需数据
-	 * @param tableName 表名
-	 * @param modelName 自定义实体类名, 为null则默认将表名下划线转成大驼峰形式
-	 * @param sign 区分字段, 规定如表 gen_test_demo, 则 test 即为区分字段
-	 * @param modelNameUpperCamel 首字为大写的实体类名
+	 * @param tableNameUpperCamel 首字为大写的实体类名
 	 * @return
 	 */
-	private Map<String, Object> getDataMapInit(String tableName, String modelName, String sign, String modelNameUpperCamel) {
-		Map<String, Object> data = new HashMap<>();
+	private Map<String, Object> getDataMapInit(String tableNameUpperCamel) {
+		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("date", DATE);
         data.put("author", AUTHOR);
-        data.put("sign", sign);
-        data.put("baseRequestMapping", StringUtils.toLowerCaseFirstOne(modelNameUpperCamel));
-        data.put("modelNameUpperCamel", modelNameUpperCamel);
-        data.put("modelNameLowerCamel", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, modelNameUpperCamel));
+        data.put("baseRequestMapping", StringUtils.toLowerCaseFirstOne(tableNameUpperCamel));
+        data.put("tableNameUpperCamel", tableNameUpperCamel);
+        data.put("tableNameLowerCamel", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, tableNameUpperCamel));
         data.put("basePackage", BASE_PACKAGE);
-		
+        data.put("resultPackage", RESULT_PACKAGE);
+
 		return data;
 	}
 }

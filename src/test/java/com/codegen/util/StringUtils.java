@@ -1,7 +1,7 @@
 package com.codegen.util;
 /**
  * 字符串操作常用方法集
- * Created by zhh on 2017/08/16.
+ * Created by GaoLiWei on 2017/08/16.
  */
 public class StringUtils {
 	

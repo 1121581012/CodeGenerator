@@ -4,11 +4,11 @@ import com.codegen.service.CodeGeneratorManager;
 
 /**
  * 代码生成器启动项
- * Created by zhh on 2017/09/20.
+ * Created by GaoLiWei on 2017/09/20.
  */
 public class CodeGeneratorMain {
 	
-	private static final String TABLE = "gen_test_demo";
+	private static final String TABLE = "bus_param_second";
 	
 	private static final String MODEL_NAME = "ITest";
 	
@@ -32,9 +32,6 @@ public class CodeGeneratorMain {
 		CodeGeneratorManager cgm = new CodeGeneratorManager();
 		
 		cgm.genCodeWithSimpleName(TABLE);
-		
-//		cgm.genCodeWithDetailName(TABLES);
-		
-//		cgm.genCodeWithCustomName(TABLE, MODEL_NAME);
+
 	}
 }

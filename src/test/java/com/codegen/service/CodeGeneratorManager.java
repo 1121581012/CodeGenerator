@@ -27,7 +27,7 @@ import freemarker.template.TemplateExceptionHandler;
 
 /**
  * 代码生成器基础项 (常量信息 & 通用方法)
- * Created by zhh on 2017/09/20.
+ * Created by GaoLiWei on 2017/09/20.
  */
 public class CodeGeneratorManager extends CodeGeneratorConfig {
 	
@@ -55,23 +55,27 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 	 * Mybatis 代码自动生成基本配置
 	 * @return
 	 */
-	public Context initMybatisGeneratorContext(String sign) {
+	public Context initMybatisGeneratorContext() {
 		Context context = new Context(ModelType.FLAT);
 		context.setId("Potato");
 		context.setTargetRuntime("MyBatis3Simple");
 		context.addProperty(PropertyRegistry.CONTEXT_BEGINNING_DELIMITER, "`");
         context.addProperty(PropertyRegistry.CONTEXT_ENDING_DELIMITER, "`");
-        
+		//格式化java代码
+//		context.addProperty("javaFormatter","org.mybatis.generator.api.dom.DefaultJavaFormatter");
+
+        //配置JDBC配置
         JDBCConnectionConfiguration jdbcConnectionConfiguration = new JDBCConnectionConfiguration();
         jdbcConnectionConfiguration.setConnectionURL(JDBC_URL);
         jdbcConnectionConfiguration.setUserId(JDBC_USERNAME);
         jdbcConnectionConfiguration.setPassword(JDBC_PASSWORD);
         jdbcConnectionConfiguration.setDriverClass(JDBC_DRIVER_CLASS_NAME);
         context.setJdbcConnectionConfiguration(jdbcConnectionConfiguration);
-        
+
+        //配饰生成XML地址配置
         SqlMapGeneratorConfiguration sqlMapGeneratorConfiguration = new SqlMapGeneratorConfiguration();
         sqlMapGeneratorConfiguration.setTargetProject(PROJECT_PATH + RESOURCES_PATH);
-        sqlMapGeneratorConfiguration.setTargetPackage("mapper." + sign);
+        sqlMapGeneratorConfiguration.setTargetPackage("mapper");
         context.setSqlMapGeneratorConfiguration(sqlMapGeneratorConfiguration);
         
         // 增加 mapper 插件
@@ -81,34 +85,16 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 	}
 	
 	/**
-	 * 生成简单名称代码
+	 * 生成代码
 	 * eg: 
 	 * 	genCode("gen_test_demo");  gen_test_demo ==> Demo
 	 * @param tableNames 表名, 可以多表
 	 */
 	public void genCodeWithSimpleName(String ...tableNames) {
-		genCodeByTableName(true, tableNames);
+		genCodeByTableName(tableNames);
 	}
-	
-	/**
-	 * 生成具体名称代码
-	 * eg: 
-	 * 	genCode("gen_test_demo");  gen_test_demo ==> GenTestDemo
-	 * @param tableNames 表名, 可以多表
-	 */
-	public void genCodeWithDetailName(String ...tableNames) {
-		genCodeByTableName(false, tableNames);
-	}
-	
-	/**
-	 * 生成自定义名称代码
-	 * eg: 
-	 * 	genCode("gen_test_demo", "IDemo");  gen_test_demo ==> IDemo
-	 * @param tableName 表名, 只能单表
-	 */
-	public void genCodeWithCustomName(String tableName, String customModelName) {
-		genCodeByTableName(tableName, customModelName, false);
-	}
+
+
 	
 	/**
 	 * 下划线转成驼峰, 首字符为小写
@@ -191,32 +177,25 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 	/**
 	 * 通过数据库表名, 生成代码
 	 * 如表名为 gen_test_demo
-	 * 将生成  Demo & DemoMapper & DemoService & DemoServiceImpl & DemoController
-	 * @param flag 标志
+	 * 将生成  Demo & DemoMapper & DemoMyService & DemoMyMyServiceImpl & DemoController
 	 * @param tableNames 表名数组
 	 */
-	private void genCodeByTableName(boolean flag, String ...tableNames) {
+	private void genCodeByTableName(String ...tableNames) {
 		for (String tableName : tableNames) {
-			genCodeByTableName(tableName, null, flag);
+			genCodeByTableName(tableName);
 		}
 	}
 	
 	/**
 	 * 通过数据库表名, 和自定义 modelName 生成代码
-	 * 如表名为 gen_test_demo, 自定义 modelName 为 IDemo
-	 * 将生成  IDemo & IDemoMapper & IDemoService & IDemoServiceImpl & IDemoController
+	 * 如表名为 gen_test_demo, 自定义 modelName 为 Demo
+	 * 将生成  Demo & DemoMapper & DemoMyService & DemoMyMyServiceImpl & DemoController
 	 * @param tableName 表名
-	 * @param modelName 实体类名
-	 * @param flag 标志
 	 */
-	private void genCodeByTableName(String tableName, String modelName, boolean flag) {
-		String sign = getSign(tableName);
-		if (flag) {
-			modelName = getDefModelName(tableName);
-		}
-		new ModelAndMapperGenerator().genCode(tableName, modelName, sign);
-		new ServiceGenerator().genCode(tableName, modelName, sign);
-		new ControllerGenerator().genCode(tableName, modelName, sign);
+	private void genCodeByTableName(String tableName) {
+		new ModelAndMapperGenerator().genCode(tableName);
+		new ServiceGenerator().genCode(tableName);
+		new ControllerGenerator().genCode(tableName);
 	}
 	
 	/**
@@ -274,6 +253,7 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 		TEMPLATE_FILE_PATH = PROJECT_PATH + prop.getProperty("template.file.path");
 		
 		BASE_PACKAGE = prop.getProperty("base.package");
+		RESULT_PACKAGE = prop.getProperty("result.package");
 		MODEL_PACKAGE = prop.getProperty("model.package");
 		MAPPER_PACKAGE = prop.getProperty("mapper.package");
 		SERVICE_PACKAGE = prop.getProperty("service.package");

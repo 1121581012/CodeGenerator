@@ -18,13 +18,13 @@ import com.codegen.util.StringUtils;
 
 /**
  * Model & Mapper 代码生成器
- * Created by zhh on 2017/09/20.
+ * Created by GaoLiWei on 2017/09/20.
  */
 public class ModelAndMapperGenerator extends CodeGeneratorManager implements CodeGenerator {
 
-	@Override
-	public void genCode(String tableName, String modelName, String sign) {
-		Context initConfig = initConfig(tableName, modelName, sign);
+
+	public void genCode(String tableName) {
+		Context initConfig = initConfig(tableName);
 		List<String> warnings = null;
 		MyBatisGenerator generator = null;
 		try {
@@ -44,39 +44,41 @@ public class ModelAndMapperGenerator extends CodeGeneratorManager implements Cod
 			throw new RuntimeException("Model 和  Mapper 生成失败, warnings: " + warnings);
 		}
 		
-		if (StringUtils.isNullOrEmpty(modelName)) {
-			modelName = tableNameConvertUpperCamel(tableName);
+		if (StringUtils.isNullOrEmpty(tableName)) {
+			tableName = tableNameConvertUpperCamel(tableName);
 		}
 		
-		logger.info(modelName, "{}.java 生成成功!");
-		logger.info(modelName, "{}Mapper.java 生成成功!");
-		logger.info(modelName, "{}Mapper.xml 生成成功!");
+		logger.info(tableName, "{}.java 生成成功!");
+		logger.info(tableName, "{}Mapper.java 生成成功!");
+//		logger.info(tableName, "{}Mapper.xml 生成成功!");
 	}
 	
 	/**
 	 * 完善初始化环境
 	 * @param tableName 表名
-	 * @param modelName 自定义实体类名, 为null则默认将表名下划线转成大驼峰形式
-	 * @param sign 区分字段, 规定如表 gen_test_demo, 则 test 即为区分字段
 	 */
-	private Context initConfig(String tableName, String modelName, String sign) {
+	private Context initConfig(String tableName) {
 		Context context = null;
 		try {
-			context = initMybatisGeneratorContext(sign);
+			context = initMybatisGeneratorContext();
+
+			//配饰生成实体类地址
 			JavaModelGeneratorConfiguration javaModelGeneratorConfiguration = new JavaModelGeneratorConfiguration();
 	        javaModelGeneratorConfiguration.setTargetProject(PROJECT_PATH + JAVA_PATH);
-	        javaModelGeneratorConfiguration.setTargetPackage(MODEL_PACKAGE + "." + sign);
+	        javaModelGeneratorConfiguration.setTargetPackage(MODEL_PACKAGE);
 	        context.setJavaModelGeneratorConfiguration(javaModelGeneratorConfiguration);
-	        
+
+	        //配置生成dao接口
 	        JavaClientGeneratorConfiguration javaClientGeneratorConfiguration = new JavaClientGeneratorConfiguration();
 	        javaClientGeneratorConfiguration.setTargetProject(PROJECT_PATH + JAVA_PATH);
-	        javaClientGeneratorConfiguration.setTargetPackage(MAPPER_PACKAGE + "." + sign);
+	        javaClientGeneratorConfiguration.setTargetPackage(MAPPER_PACKAGE);
 	        javaClientGeneratorConfiguration.setConfigurationType("XMLMAPPER");
 	        context.setJavaClientGeneratorConfiguration(javaClientGeneratorConfiguration);
 	        
 	        TableConfiguration tableConfiguration = new TableConfiguration(context);
 	        tableConfiguration.setTableName(tableName);
-	        tableConfiguration.setDomainObjectName(modelName);
+	        //设置生成的domain类的名字，不设置则使用表名
+//	        tableConfiguration.setDomainObjectName(modelName);
 	        tableConfiguration.setGeneratedKey(new GeneratedKey("id", "Mysql", true, null));
 	        context.addTableConfiguration(tableConfiguration);
 		} catch (Exception e) {

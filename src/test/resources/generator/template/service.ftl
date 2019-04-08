@@ -1,11 +1,11 @@
-package ${basePackage}.service.${sign};
-import ${basePackage}.model.${sign}.${modelNameUpperCamel};
-import ${basePackage}.service.Service;
+package ${basePackage}.service;
+import ${basePackage}.model.${tableNameUpperCamel};
+
 
 /**
- *
- * Created by ${author} on ${date}.
- */
-public interface ${modelNameUpperCamel}Service extends Service<${modelNameUpperCamel}> {
+* @author ${author}
+* @date ${date}
+*/
+public interface ${tableNameUpperCamel}Service extends MyService<${tableNameUpperCamel}> {
 
 }

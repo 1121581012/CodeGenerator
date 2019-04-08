@@ -1,61 +1,51 @@
-package ${basePackage}.web.controller.${sign};
-import ${basePackage}.model.${sign}.${modelNameUpperCamel};
-import ${basePackage}.service.${sign}.${modelNameUpperCamel}Service;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseBody;
+package ${basePackage}.controller;
+import ${basePackage}.model.${tableNameUpperCamel};
+import ${basePackage}.service.${tableNameUpperCamel}Service;
+import ${resultPackage}.Result;
 
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 
 /**
- *
- * Created by ${author} on ${date}.
- */
+* @author ${author}
+* @date ${date}
+*/
 @Controller
 @RequestMapping("/${baseRequestMapping}/")
-public class ${modelNameUpperCamel}Controller {
+public class ${tableNameUpperCamel}Controller {
 
     @Autowired
-    ${modelNameUpperCamel}Service ${modelNameLowerCamel}Service;
+    ${tableNameUpperCamel}Service ${tableNameLowerCamel}Service;
 
-    @RequestMapping("add")
-    @ResponseBody
-    public String add(${modelNameUpperCamel} ${modelNameLowerCamel}) {
-        ${modelNameLowerCamel}Service.save(${modelNameLowerCamel});
-        return "";
+
+    @PostMapping("insert")
+    public Result insert(@RequestBody ${tableNameUpperCamel} ${tableNameLowerCamel}) {
+    return Result.result(${tableNameLowerCamel}Service.insert(${tableNameLowerCamel}),"新增成功","新增失败");
     }
 
-    @RequestMapping("delete")
-    @ResponseBody
-    public String delete(@RequestParam Integer id) {
-	    ${modelNameLowerCamel}Service.deleteById(id);
-	    return "";
+    @DeleteMapping("delete")
+    public Result delete(@RequestBody ${tableNameUpperCamel} ${tableNameLowerCamel}) {
+    return Result.result(${tableNameLowerCamel}Service.delete(${tableNameLowerCamel}),"删除成功","删除失败");
     }
 
-    @RequestMapping("update")
-    @ResponseBody
-    public String update(${modelNameUpperCamel} ${modelNameLowerCamel}) {
-	    ${modelNameLowerCamel}Service.update(${modelNameLowerCamel});
-	    return "";
+    @DeleteMapping("deleteById/{id}")
+    public Result deleteById(@PathVariable String id) {
+    return Result.result(${tableNameLowerCamel}Service.deleteById(id),"删除成功","删除失败");
     }
 
-    @RequestMapping("detail")
-    @ResponseBody
-    public String detail(@RequestParam Integer id) {
-        ${modelNameUpperCamel} ${modelNameLowerCamel} = ${modelNameLowerCamel}Service.findById(id);
-        return ${modelNameLowerCamel}.toString();
+    @PutMapping("update")
+    public Result update(@RequestBody ${tableNameUpperCamel} ${tableNameLowerCamel}) {
+    return Result.result(${tableNameLowerCamel}Service.update(${tableNameLowerCamel}),"更新成功","更新失败");
     }
 
-    @RequestMapping("list")
-    @ResponseBody
-    public String list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<${modelNameUpperCamel}> list = ${modelNameLowerCamel}Service.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return list.toString();
+    @GetMapping("selectById/{id}")
+    public Result selectById(@PathVariable String id) {
+    return Result.result(${tableNameLowerCamel}Service.selectById(id));
+    }
+
+    @GetMapping("selectAll")
+    public Result selectAll() {
+    return Result.result(${tableNameLowerCamel}Service.selectAll());
     }
 }
