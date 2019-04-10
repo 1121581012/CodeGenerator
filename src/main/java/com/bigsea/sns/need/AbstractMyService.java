@@ -11,7 +11,7 @@ import java.util.List;
  */
 public abstract class AbstractMyService<T> {
 
-    @Autowired
+    @Autowired(required=false)
     protected MyMapper<T> mapper;
 
     /**
