@@ -4,7 +4,9 @@ import java.util.List;
 
 /**
  * MyService 层 基础接口，其他Service 接口 请继承该接口
- * Created by GaoLiWei on 2017/09/18.
+ *
+ * @author GaoLiWei
+ * @date 2017/09/18
  */
 public interface MyService<T> {
 

@@ -1,11 +1,19 @@
 package com.bigsea.sns.result;
 
 /**
- * Created by lcy on 17/2/11.
+ *
+ * @author GaoLiWie
+ * @date 2018/7/26
  */
 public enum MessageConstant {
 
+    /**
+     * 操作成功
+     */
     MESSAGE_ALERT_SUCCESS("操作成功"),
+    /**
+     * 操作失败
+     */
     MESSAGE_ALERT_ERROR("操作失败");
 
     public String msg;
