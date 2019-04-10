@@ -12,7 +12,9 @@ public class CodeGeneratorConfig {
 	protected static String JDBC_DRIVER_CLASS_NAME;
 	
 	// 项目在硬盘上的基础路径
-	protected static final String PROJECT_PATH = System.getProperty("user.dir");
+	protected static String PROJECT_PATH = System.getProperty("user.dir");
+    // 要生成到的指定项目在硬盘上的基础路径
+    protected static String TO_PROJECT_PATH;
 	// java文件路径
 	protected static String JAVA_PATH;
 	// 资源文件路径
@@ -22,6 +24,8 @@ public class CodeGeneratorConfig {
 	
 	// 项目基础包
 	protected static String BASE_PACKAGE;
+	// 项目基础包
+	protected static String COMMON_BUSINESS_PACKAGE;
 	// 项目封装结果集包
 	protected static String RESULT_PACKAGE;
 	// 项目 Model 所在包

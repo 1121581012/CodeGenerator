@@ -25,7 +25,7 @@ public class ControllerGenerator extends CodeGeneratorManager implements CodeGen
 		
 		Map<String, Object> data = getDataMapInit(tableNameUpperCamel);
 		try {
-			File controllerFile = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_CONTROLLER
+			File controllerFile = new File(TO_PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_CONTROLLER
 						 + tableNameUpperCamel + "Controller.java");
 	        if (!controllerFile.getParentFile().exists()) {
 	        	controllerFile.getParentFile().mkdirs();
@@ -50,6 +50,7 @@ public class ControllerGenerator extends CodeGeneratorManager implements CodeGen
         data.put("tableNameUpperCamel", tableNameUpperCamel);
         data.put("tableNameLowerCamel", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, tableNameUpperCamel));
         data.put("basePackage", BASE_PACKAGE);
+        data.put("commonPackage", COMMON_BUSINESS_PACKAGE);
         data.put("resultPackage", RESULT_PACKAGE);
 
 		return data;

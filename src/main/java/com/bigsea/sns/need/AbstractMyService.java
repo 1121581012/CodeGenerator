@@ -1,6 +1,5 @@
-package com.bigsea.sns.service;
+package com.bigsea.sns.need;
 
-import com.bigsea.sns.dao.MyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;

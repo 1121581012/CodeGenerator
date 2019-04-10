@@ -1,4 +1,4 @@
-package com.bigsea.sns.dao;
+package com.bigsea.sns.need;
 
 
 import tk.mybatis.mapper.common.Mapper;

@@ -24,7 +24,7 @@ public class ServiceGenerator extends CodeGeneratorManager implements CodeGenera
 		Map<String, Object> data = getDataMapInit(tableNameUpperCamel);
 		try {
 			// 创建 Service 接口
-			File serviceFile = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_SERVICE
+			File serviceFile = new File(TO_PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_SERVICE
 					+ tableNameUpperCamel + "Service.java");
 			// 查看父级目录是否存在, 不存在则创建
 			if (!serviceFile.getParentFile().exists()) {
@@ -34,7 +34,7 @@ public class ServiceGenerator extends CodeGeneratorManager implements CodeGenera
 			logger.info(tableNameUpperCamel + "Service.java 生成成功!");
 			
 			// 创建 Service 接口的实现类
-			File serviceImplFile = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_SERVICE_IMPL
+			File serviceImplFile = new File(TO_PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_SERVICE_IMPL
 					+ tableNameUpperCamel + "ServiceImpl.java");
 			// 查看父级目录是否存在, 不存在则创建
 			if (!serviceImplFile.getParentFile().exists()) {
@@ -58,6 +58,7 @@ public class ServiceGenerator extends CodeGeneratorManager implements CodeGenera
 		data.put("author", AUTHOR);
 		data.put("tableNameUpperCamel", tableNameUpperCamel);
 		data.put("tableNameLowerCamel", StringUtils.toLowerCaseFirstOne(tableNameUpperCamel));
+		data.put("commonPackage", COMMON_BUSINESS_PACKAGE);
 		data.put("basePackage", BASE_PACKAGE);
 		
 		return data;

@@ -74,7 +74,7 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 
         //配饰生成XML地址配置
         SqlMapGeneratorConfiguration sqlMapGeneratorConfiguration = new SqlMapGeneratorConfiguration();
-        sqlMapGeneratorConfiguration.setTargetProject(PROJECT_PATH + RESOURCES_PATH);
+        sqlMapGeneratorConfiguration.setTargetProject(TO_PROJECT_PATH + RESOURCES_PATH);
         sqlMapGeneratorConfiguration.setTargetPackage("mapper");
         context.setSqlMapGeneratorConfiguration(sqlMapGeneratorConfiguration);
         
@@ -247,12 +247,14 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 		JDBC_USERNAME = prop.getProperty("jdbc.username");
 		JDBC_PASSWORD = prop.getProperty("jdbc.password");
 		JDBC_DRIVER_CLASS_NAME = prop.getProperty("jdbc.driver.class.name");
-		
+
+		TO_PROJECT_PATH = prop.getProperty("user.dir");
 		JAVA_PATH = prop.getProperty("java.path");
 		RESOURCES_PATH = prop.getProperty("resources.path");
 		TEMPLATE_FILE_PATH = PROJECT_PATH + prop.getProperty("template.file.path");
 		
 		BASE_PACKAGE = prop.getProperty("base.package");
+		COMMON_BUSINESS_PACKAGE = prop.getProperty("common.business.package");
 		RESULT_PACKAGE = prop.getProperty("result.package");
 		MODEL_PACKAGE = prop.getProperty("model.package");
 		MAPPER_PACKAGE = prop.getProperty("mapper.package");

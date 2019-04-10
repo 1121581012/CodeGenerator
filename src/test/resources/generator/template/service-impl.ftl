@@ -1,9 +1,9 @@
-package ${basePackage}.service.impl;
+package ${basePackage}.${commonPackage}.service.impl;
 
-import ${basePackage}.dao.${tableNameUpperCamel}Mapper;
-import ${basePackage}.model.${tableNameUpperCamel};
-import ${basePackage}.service.${tableNameUpperCamel}Service;
-import ${basePackage}.service.AbstractMyService;
+import ${basePackage}.${commonPackage}.dao.${tableNameUpperCamel}Mapper;
+import ${basePackage}.${commonPackage}.model.${tableNameUpperCamel};
+import ${basePackage}.${commonPackage}.service.${tableNameUpperCamel}Service;
+import ${basePackage}.${commonPackage}.need.AbstractMyService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,5 +1,7 @@
-package ${basePackage}.service;
-import ${basePackage}.model.${tableNameUpperCamel};
+package ${basePackage}.${commonPackage}.service;
+
+import ${basePackage}.${commonPackage}.model.${tableNameUpperCamel};
+import ${basePackage}.${commonPackage}.need.MyService;
 
 
 /**

@@ -1,6 +1,7 @@
-package ${basePackage}.controller;
-import ${basePackage}.model.${tableNameUpperCamel};
-import ${basePackage}.service.${tableNameUpperCamel}Service;
+package ${basePackage}.${commonPackage}.controller;
+
+import ${basePackage}.${commonPackage}.model.${tableNameUpperCamel};
+import ${basePackage}.${commonPackage}.service.${tableNameUpperCamel}Service;
 import ${resultPackage}.Result;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 * @author ${author}
 * @date ${date}
 */
-@Controller
+@RestController
 @RequestMapping("/${baseRequestMapping}/")
 public class ${tableNameUpperCamel}Controller {
 

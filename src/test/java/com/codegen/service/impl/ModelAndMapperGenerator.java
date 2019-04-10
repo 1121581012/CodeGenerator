@@ -64,13 +64,13 @@ public class ModelAndMapperGenerator extends CodeGeneratorManager implements Cod
 
 			//配饰生成实体类地址
 			JavaModelGeneratorConfiguration javaModelGeneratorConfiguration = new JavaModelGeneratorConfiguration();
-	        javaModelGeneratorConfiguration.setTargetProject(PROJECT_PATH + JAVA_PATH);
+	        javaModelGeneratorConfiguration.setTargetProject(TO_PROJECT_PATH + JAVA_PATH);
 	        javaModelGeneratorConfiguration.setTargetPackage(MODEL_PACKAGE);
 	        context.setJavaModelGeneratorConfiguration(javaModelGeneratorConfiguration);
 
 	        //配置生成dao接口
 	        JavaClientGeneratorConfiguration javaClientGeneratorConfiguration = new JavaClientGeneratorConfiguration();
-	        javaClientGeneratorConfiguration.setTargetProject(PROJECT_PATH + JAVA_PATH);
+	        javaClientGeneratorConfiguration.setTargetProject(TO_PROJECT_PATH + JAVA_PATH);
 	        javaClientGeneratorConfiguration.setTargetPackage(MAPPER_PACKAGE);
 	        javaClientGeneratorConfiguration.setConfigurationType("XMLMAPPER");
 	        context.setJavaClientGeneratorConfiguration(javaClientGeneratorConfiguration);
@@ -79,7 +79,7 @@ public class ModelAndMapperGenerator extends CodeGeneratorManager implements Cod
 	        tableConfiguration.setTableName(tableName);
 	        //设置生成的domain类的名字，不设置则使用表名
 //	        tableConfiguration.setDomainObjectName(modelName);
-	        tableConfiguration.setGeneratedKey(new GeneratedKey("id", "Mysql", true, null));
+//	        tableConfiguration.setGeneratedKey(new GeneratedKey("id", "Mysql", true, null));
 	        context.addTableConfiguration(tableConfiguration);
 		} catch (Exception e) {
 			throw new RuntimeException("ModelAndMapperGenerator 初始化环境异常!", e);

@@ -1,4 +1,4 @@
-package com.bigsea.sns.service;
+package com.bigsea.sns.need;
 
 import java.util.List;
 
