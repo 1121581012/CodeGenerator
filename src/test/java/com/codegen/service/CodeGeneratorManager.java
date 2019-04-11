@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
+import com.codegen.service.impl.DaoGenerator;
 import org.mybatis.generator.config.Context;
 import org.mybatis.generator.config.JDBCConnectionConfiguration;
 import org.mybatis.generator.config.ModelType;
@@ -193,8 +194,14 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 	 * @param tableName 表名
 	 */
 	private void genCodeByTableName(String tableName) {
-		new ModelAndMapperGenerator().genCode(tableName);
+		//ModelAndMapperGenerator会生成DAO，实体类，与XML文件,这个方法与DaoGenerator不可同时使用，修改使用方法注意修改模板文件
+//		new ModelAndMapperGenerator().genCode(tableName);
+
+		//只生成DAO
+		new DaoGenerator().genCode(tableName);
+		//生成service层
 		new ServiceGenerator().genCode(tableName);
+		//生成controller层
 		new ControllerGenerator().genCode(tableName);
 	}
 	
@@ -267,10 +274,12 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 		ABSTRACT_SERVICE_CLASS_REFERENCE = prop.getProperty("abstract.service.class.reference");
 		
 		String servicePackage = prop.getProperty("package.path.service");
+		String daoPackage = prop.getProperty("package.path.dao");
 		String serviceImplPackage = prop.getProperty("package.path.service.impl");
 		String controllerPackage = prop.getProperty("package.path.controller");
 		
 		PACKAGE_PATH_SERVICE = "".equals(servicePackage) ? packageConvertPath(SERVICE_PACKAGE) : servicePackage;
+		PACKAGE_PATH_MAPPER = "".equals(daoPackage) ? packageConvertPath(MAPPER_PACKAGE) : daoPackage;
 		PACKAGE_PATH_SERVICE_IMPL = "".equals(serviceImplPackage) ? packageConvertPath(SERVICE_IMPL_PACKAGE) : serviceImplPackage;
 		PACKAGE_PATH_CONTROLLER = "".equals(controllerPackage) ? packageConvertPath(CONTROLLER_PACKAGE) : controllerPackage;
 		

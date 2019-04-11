@@ -1,6 +1,6 @@
 package ${basePackage}.${commonPackage}.service.impl;
 
-import ${basePackage}.${commonPackage}.dao.${tableNameUpperCamel}Mapper;
+import ${basePackage}.${commonPackage}.dao.${tableNameUpperCamel}Dao;
 import ${basePackage}.${commonPackage}.model.${tableNameUpperCamel};
 import ${basePackage}.${commonPackage}.service.${tableNameUpperCamel}Service;
 import ${basePackage}.${commonPackage}.need.AbstractMyService;
@@ -15,6 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ${tableNameUpperCamel}ServiceImpl extends AbstractMyService<${tableNameUpperCamel}> implements ${tableNameUpperCamel}Service {
 
     @Autowired
-    private ${tableNameUpperCamel}Mapper ${tableNameLowerCamel}Mapper;
+    private ${tableNameUpperCamel}Dao ${tableNameLowerCamel}Dao;
 
 }

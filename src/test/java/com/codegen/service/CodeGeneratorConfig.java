@@ -45,6 +45,8 @@ public class CodeGeneratorConfig {
 	protected static String PACKAGE_PATH_SERVICE_IMPL;
 	// 生成的 Controller 存放路径
 	protected static String PACKAGE_PATH_CONTROLLER;
+	// 项目 DAO 存放路径
+	protected static String PACKAGE_PATH_MAPPER;
 	
 	// MyMapper 插件基础接口的完全限定名
 	protected static String MAPPER_INTERFACE_REFERENCE;
